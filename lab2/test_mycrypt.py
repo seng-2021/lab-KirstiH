@@ -21,7 +21,8 @@ import mycrypt
     ("b", "O"),
     ("abc", "NOP"),
     ("abc123", 'NOP!"#'),
-    ("4", u'€')
+    ("4", u'€'),
+    ("CC", "pp")
 ])
 def test_encode(test_input, expected):
     '''Verify that strings given above match the expected results'''
@@ -29,20 +30,20 @@ def test_encode(test_input, expected):
 
 
 @pytest.mark.parametrize("test_input", [
-    '123', '!"#','abc'])
+    '123', '!"#','abc','BB'])
 def test_encode_decode(test_input):
     '''Verify that decoding an encoded string returns original string'''
     assert(mycrypt.decode(mycrypt.encode(test_input))) == test_input
 
 
-@pytest.mark.parametrize("invalid_input", ['+','åäö'])
+@pytest.mark.parametrize("invalid_input", ['+','åäö', ("x"*1200)])
 def test_invalid_char(invalid_input):
     '''Invalid characters should result in ValueError'''
     with pytest.raises(ValueError):
         mycrypt.encode(invalid_input)
 
 
-@pytest.mark.parametrize("invalid_input", [])
+@pytest.mark.parametrize("invalid_input", [5, 4.0, 100, 10000])
 def test_invalid_types(invalid_input):
     '''Invalid parameter types should raise TypeError'''
     with pytest.raises(TypeError):
