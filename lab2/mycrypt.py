@@ -4,7 +4,7 @@ def encode(s):
     if not isinstance(s,str):
         raise TypeError
     origlen = len(s)
-    s = s.ljust(1000, "a")
+    s=s.ljust(1000, "a")
     crypted = ""
     digitmapping = dict(zip('1234567890!"#€%&/()=','!"#€%&/()=1234567890'))
     if len(s) > 1000:
